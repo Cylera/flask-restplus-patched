@@ -1,6 +1,6 @@
 try:
-    from apispec.ext.marshmallow import resolver
     from apispec.ext.marshmallow.openapi import OpenAPIConverter
+    from apispec.ext.marshmallow import resolver
     openapi = OpenAPIConverter(
         openapi_version='2.0',
         schema_name_resolver=resolver,
