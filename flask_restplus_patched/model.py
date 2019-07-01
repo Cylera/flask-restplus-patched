@@ -27,7 +27,7 @@ class SchemaMixin(object):
 
 class Schema(SchemaMixin, flask_marshmallow.Schema):
     def __init__(self, **kwargs):
-        super(Schema, self).__init__(strict=True, **kwargs)
+        super(Schema, self).__init__(**kwargs)
 
 
 if flask_marshmallow.has_sqla:
