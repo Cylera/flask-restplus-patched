@@ -8,7 +8,7 @@ from flask_marshmallow import Schema, base_fields
 from marshmallow import validate, validates_schema, ValidationError
 
 
-log = logging.getLogger(__name__)  # pylint: disable=invalid-name
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
 class Parameters(Schema):
@@ -134,7 +134,7 @@ class PatchJSONParameters(Parameters):
             state = {}
         for operation in operations:
             if not cls._process_patch_operation(operation, obj=obj, state=state):
-                log.info(
+                logger.info(
                     "%s patching has been stopped because of unknown operation %s",
                     obj.__class__.__name__,
                     operation
