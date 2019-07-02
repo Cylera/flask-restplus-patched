@@ -1,6 +1,11 @@
 try:
     from apispec.ext.marshmallow.openapi import OpenAPIConverter
-    openapi = OpenAPIConverter(openapi_version='2.0')
+    from apispec.ext.marshmallow import resolver
+    openapi = OpenAPIConverter(
+        openapi_version='2.0',
+        schema_name_resolver=resolver,
+        spec=None
+    )
     fields2jsonschema = openapi.fields2jsonschema
     field2property = openapi.field2property
 except ImportError:
@@ -22,13 +27,13 @@ class SchemaMixin(object):
 
 class Schema(SchemaMixin, flask_marshmallow.Schema):
     def __init__(self, **kwargs):
-        super(Schema, self).__init__(strict=True, **kwargs)
+        super(Schema, self).__init__(**kwargs)
 
 
 if flask_marshmallow.has_sqla:
     class ModelSchema(SchemaMixin, flask_marshmallow.sqla.ModelSchema):
         def __init__(self, **kwargs):
-            super(ModelSchema, self).__init__(strict=True, **kwargs)
+            super(ModelSchema, self).__init__(**kwargs)
 
 
 class DefaultHTTPErrorSchema(Schema):

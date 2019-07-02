@@ -1,3 +1,5 @@
+import logging
+
 from flask import current_app, jsonify
 from flask_restplus import Api as OriginalApi
 from werkzeug import cached_property
@@ -5,6 +7,9 @@ from werkzeug import cached_property
 from ._http import HTTPStatus
 from .namespace import Namespace
 from .swagger import Swagger
+
+
+logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
 
 class Api(OriginalApi):
@@ -45,7 +50,8 @@ class Api(OriginalApi):
 
 # Return validation errors as JSON
 def handle_validation_error(err):
-    exc = err.data['exc']
+    logger.error("handle_validation_error(err) ======= %s" % (err,))
+    exc = err['exc']
     return jsonify({
         'status': HTTPStatus.UNPROCESSABLE_ENTITY.value,
         'message': exc.messages

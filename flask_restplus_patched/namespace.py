@@ -151,7 +151,7 @@ class Namespace(OriginalNamespace):
                     _code = code
 
                 if HTTPStatus(_code) is code:
-                    response = model.dump(response).data
+                    response = model.dump(response)
                 return response, _code, extra_headers
 
             return dump_wrapper
